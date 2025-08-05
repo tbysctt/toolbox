@@ -3,7 +3,7 @@
 ## Development / Testing
 
 ```sh
-docker build -t debug-cont:latest --platform=linux/amd64 .
+docker build -t tobystoolbox:latest --platform=linux/amd64 .
 
-docker run --rm -it debug-cont
+docker run --rm -it tobystoolbox
 ```
