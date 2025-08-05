@@ -1,0 +1,21 @@
+name: Build and push
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and push the docker image
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Build and push the docker image
+        run: |
+          docker build -t debug-cont:latest --platform=linux/amd64 .
