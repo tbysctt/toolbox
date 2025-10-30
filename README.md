@@ -2,11 +2,9 @@
 
 A comprehensive debugging and development container image packed with essential tools for troubleshooting, development, and system administration tasks.
 
-- **Base Image**: Debian 12.11 Slim
-- **Architecture**: linux/amd64
-- **Shell**: Zsh (with Oh My Zsh)
-- **Working Directory**: `/root`
-- **Entrypoint**: `zsh`
+This image includes [my dotfiles](https://github.com/tbysctt/dotfiles) to configure the built-in tools.
+
+> Note: It only supports x86 for now. ARM support will come later :)
 
 ## Quick Start
 
@@ -23,48 +21,6 @@ docker run --rm -it --network host ghcr.io/tbysctt/toolbox:latest
 # Mount current directory for file operations
 docker run --rm -it -v $(pwd):/workspace -w /workspace ghcr.io/tbysctt/toolbox:latest
 ```
-
-## Included Tools
-
-### Development & Editors
-- **nvim** - Neovim (LazyVim distribution)
-- **git** - Git VCS
-- **lazygit** - Terminal UI for git commands
-- **gcc** - GNU C/C++ Compiler
-- **python** - Python 3
-
-### Kubernetes & Container Tools
-- **kubectl** - Kubernetes command-line tool
-
-### Network & System Debugging
-- **curl/wget** - HTTP clients
-- **ping** - Network connectivity testing
-- **traceroute** - Network path tracing
-- **tcpdump** - Network packet analyzer
-- **netstat** - Network statistics (via net-tools)
-- **dig/nslookup** - DNS lookup tools (via dnsutils)
-- **strace** - System call tracer
-
-### File & Text Processing
-- **rg** - Ripgrep, fast text search
-- **fzf** - Fuzzy finder
-- **fd** - Fast file finder
-- **jq** - JSON processor
-- **yq** - YAML processor
-- **grep/less** - Text processing utilities
-
-### Shell & Terminal
-- **zsh** ZSH (with Oh My Zsh including auto-suggestions and syntax highlighting plugins)
-- **tmux** - Terminal multiplexer
-
-### System Utilities
-- **ps/top** - Process utilities (via procps)
-- **unzip** - Archive extraction
-
-## Built-in Aliases
-
-- `k` → `kubectl`
-- `vim` → `nvim`
 
 ## Common Use Cases
 
