@@ -18,6 +18,14 @@ git config --global init.defaultBranch main
 git clone https://github.com/tbysctt/dotfiles ~/dotfiles
 cd ~/dotfiles && stow zsh vim lazyvim tmux lf
 
+# Install Neovim
+curl -LO "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
+tar -xzf nvim-linux-x86_64.tar.gz
+mv nvim-linux-x86_64 /opt/nvim
+ln -s /opt/nvim/bin/nvim /usr/local/bin/nvim
+rm nvim-linux-x86_64.tar.gz
+nvim --headless "+Lazy! sync" +qa || true
+
 # Install kubectl
 KUBECTL_VERSION=$(curl -Ls https://dl.k8s.io/release/stable.txt)
 curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
@@ -25,15 +33,6 @@ curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl.s
 echo "$(cat kubectl.sha256)  kubectl" | sha256sum -c -
 install -m755 kubectl /usr/local/bin/
 rm kubectl kubectl.sha256
-
-# Install Neovim
-NEOVIM_VERSION=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | grep -Po '"tag_name": *"v\K[^"]*')
-curl -LO "https://github.com/neovim/neovim/releases/download/v${NEOVIM_VERSION}/nvim-linux64.tar.gz"
-tar -xzf nvim-linux64.tar.gz
-mv nvim-linux64 /opt/nvim
-ln -s /opt/nvim/bin/nvim /usr/local/bin/nvim
-rm nvim-linux64.tar.gz
-nvim --headless "+Lazy! sync" +qa || true
 
 # Install Lazygit
 LAZYGIT_VERSION=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | grep -Po '"tag_name": *"v\K[^"]*')
