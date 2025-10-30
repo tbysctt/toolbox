@@ -18,6 +18,11 @@ git config --global init.defaultBranch main
 git clone https://github.com/tbysctt/dotfiles ~/dotfiles
 cd ~/dotfiles && stow zsh vim lazyvim tmux lf
 
+# Install OhMyZsh and plugins
+git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
 # Install Neovim
 curl -LO "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
 tar -xzf nvim-linux-x86_64.tar.gz
@@ -41,7 +46,3 @@ tar xf lazygit.tar.gz lazygit
 install -Dm755 lazygit /usr/local/bin/lazygit
 rm lazygit.tar.gz lazygit
 
-# Setup ohmyzsh - I'll need to come back to this, I believe it will override the .zshrc I created above
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
