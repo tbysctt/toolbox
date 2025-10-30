@@ -12,16 +12,16 @@ A comprehensive debugging and development container image packed with essential 
 
 ```sh
 # Pull the latest image
-docker pull ghcr.io/tobyscott25/toolbox:latest
+docker pull ghcr.io/tbysctt/toolbox:latest
 
 # Run interactively
-docker run --rm -it ghcr.io/tobyscott25/toolbox:latest
+docker run --rm -it ghcr.io/tbysctt/toolbox:latest
 
 # Run with host network access (useful for network debugging)
-docker run --rm -it --network host ghcr.io/tobyscott25/toolbox:latest
+docker run --rm -it --network host ghcr.io/tbysctt/toolbox:latest
 
 # Mount current directory for file operations
-docker run --rm -it -v $(pwd):/workspace -w /workspace ghcr.io/tobyscott25/toolbox:latest
+docker run --rm -it -v $(pwd):/workspace -w /workspace ghcr.io/tbysctt/toolbox:latest
 ```
 
 ## Included Tools
@@ -71,14 +71,14 @@ docker run --rm -it -v $(pwd):/workspace -w /workspace ghcr.io/tobyscott25/toolb
 ### Kubernetes Debugging
 ```sh
 # Connect to a cluster and debug
-docker run --rm -it -v ~/.kube:/root/.kube ghcr.io/tobyscott25/toolbox:latest
+docker run --rm -it -v ~/.kube:/root/.kube ghcr.io/tbysctt/toolbox:latest
 k get pods  # kubectl is aliased to 'k'
 ```
 
 ### Network Troubleshooting
 ```sh
 # Run with host network for network debugging
-docker run --rm -it --network host ghcr.io/tobyscott25/toolbox:latest
+docker run --rm -it --network host ghcr.io/tbysctt/toolbox:latest
 ping google.com
 traceroute 8.8.8.8
 tcpdump -i eth0
@@ -87,7 +87,7 @@ tcpdump -i eth0
 ### File Analysis & Processing
 ```sh
 # Mount directory and analyze files
-docker run --rm -it -v /path/to/files:/data ghcr.io/tobyscott25/toolbox:latest
+docker run --rm -it -v /path/to/files:/data ghcr.io/tbysctt/toolbox:latest
 cd /data
 rg "pattern" .          # Search with ripgrep
 fd "*.json" . | head    # Find JSON files
@@ -97,7 +97,7 @@ cat file.json | jq '.'  # Pretty print JSON
 ### Development Environment
 ```sh
 # Use as a development container
-docker run --rm -it -v $(pwd):/workspace -w /workspace ghcr.io/tobyscott25/toolbox:latest
+docker run --rm -it -v $(pwd):/workspace -w /workspace ghcr.io/tbysctt/toolbox:latest
 nvim file.py
 git status
 lazygit
@@ -108,7 +108,7 @@ lazygit
 ### With Docker Socket Access
 ```sh
 # For Docker-in-Docker scenarios
-docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/tobyscott25/toolbox:latest
+docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/tbysctt/toolbox:latest
 dive image:tag  # Analyze Docker images
 ```
 
@@ -118,7 +118,7 @@ dive image:tag  # Analyze Docker images
 docker run --rm -it \
   -v ~/.gitconfig:/root/.gitconfig:ro \
   -v ~/.kube:/root/.kube:ro \
-  ghcr.io/tobyscott25/toolbox:latest
+  ghcr.io/tbysctt/toolbox:latest
 ```
 
 ### As a Sidecar Container
@@ -129,7 +129,7 @@ kind: Pod
 spec:
   containers:
   - name: debug-toolbox
-    image: ghcr.io/tobyscott25/toolbox:latest
+    image: ghcr.io/tbysctt/toolbox:latest
     command: ["sleep", "infinity"]
     # Then: kubectl exec -it pod-name -c debug-toolbox -- zsh
 ```
@@ -139,7 +139,7 @@ spec:
 To build, run and test locally:
 
 ```sh
-git clone https://github.com/tobyscott25/toolbox.git
+git clone https://github.com/tbysctt/toolbox.git
 cd toolbox
 docker build -t tobystoolbox:latest --platform=linux/amd64 .
 docker run --rm -it tobystoolbox:latest
