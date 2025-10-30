@@ -2,7 +2,7 @@
 
 A comprehensive debugging and development container image packed with essential tools for troubleshooting, development, and system administration tasks.
 
-This image includes [my dotfiles](https://github.com/tbysctt/dotfiles) to configure the built-in tools.
+This image is based on Alpine to keep the size small and includes [my dotfiles](https://github.com/tbysctt/dotfiles) to configure the built-in tools.
 
 > Note: It only supports x86 for now. ARM support will come later :)
 
