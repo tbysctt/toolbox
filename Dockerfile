@@ -5,9 +5,10 @@ SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux -o pipefail
 apt-get update
-apt install -y --no-install-recommends \
+apt-get install -y --no-install-recommends \
     ca-certificates \
     git \
+    stow \
     zsh \
     curl wget \
     fzf grep ripgrep fd-find luarocks \
@@ -22,6 +23,9 @@ apt install -y --no-install-recommends \
     traceroute \
     dnsutils
 apt clean && rm -rf /var/lib/apt/lists/*
+
+git clone https://github.com/tbysctt/dotfiles ~/dotfiles
+stow zsh vim lazyvim tmux lf
 
 git config --global user.name "Debug User"
 git config --global user.email "user@host.tld"
@@ -41,8 +45,6 @@ tar -xzf nvim-linux-x86_64.tar.gz
 mv nvim-linux-x86_64 /opt/nvim
 ln -s /opt/nvim/bin/nvim /usr/local/bin/nvim
 rm nvim-linux-x86_64.tar.gz
-git clone https://github.com/LazyVim/starter ~/.config/nvim
-rm -rf ~/.config/nvim/.git
 nvim --headless "+Lazy! sync" +qa
 
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
@@ -58,7 +60,5 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 EOF
 
 WORKDIR /root
-COPY .ohmyzsh/custom/aliases.zsh ./.oh-my-zsh/custom/aliases.zsh
-COPY .zshrc ./.zshrc
 
 ENTRYPOINT ["zsh"]
