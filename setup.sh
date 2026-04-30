@@ -1,13 +1,14 @@
 #!/bin/ash
+
 set -eux -o pipefail
 
 # Install dependencies
 apk add --no-cache \
-    bash ca-certificates curl wget git \
-    zsh tmux less ripgrep fd fzf grep \
-    jq yq unzip gcc musl-dev python3 \
-    iputils bind-tools net-tools procps \
-    strace tcpdump traceroute luarocks stow tzdata
+  bash ca-certificates curl wget git \
+  zsh tmux less ripgrep fd fzf grep \
+  jq yq unzip gcc musl-dev python3 \
+  iputils bind-tools net-tools procps \
+  strace tcpdump traceroute luarocks stow tzdata
 
 # Git identity defaults
 git config --global user.name "Debug User"
@@ -18,10 +19,10 @@ git config --global init.defaultBranch main
 git clone https://github.com/tbysctt/dotfiles ~/dotfiles
 cd ~/dotfiles && stow zsh vim lazyvim tmux lf
 
-# Install OhMyZsh and plugins
-git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+# Install ZSH plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-history-substring-search.git ~/.zsh/zsh-history-substring-search
 
 # Install Neovim
 curl -LO "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
@@ -45,4 +46,3 @@ curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/downl
 tar xf lazygit.tar.gz lazygit
 install -Dm755 lazygit /usr/local/bin/lazygit
 rm lazygit.tar.gz lazygit
-
