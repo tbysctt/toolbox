@@ -2,6 +2,19 @@
 
 set -eux -o pipefail
 
+TARGETARCH="${TARGETARCH:-}"
+if [ -z "$TARGETARCH" ]; then
+  case "$(uname -m)" in
+    x86_64) TARGETARCH=amd64 ;;
+    aarch64) TARGETARCH=arm64 ;;
+    *) echo "unsupported architecture: $(uname -m)" >&2; exit 1 ;;
+  esac
+fi
+case "$TARGETARCH" in
+  amd64|arm64) ;;
+  *) echo "unsupported TARGETARCH: ${TARGETARCH}" >&2; exit 1 ;;
+esac
+
 # Install dependencies
 apk add --no-cache \
   bash ca-certificates curl wget git \
@@ -33,15 +46,22 @@ git clone https://github.com/zsh-users/zsh-history-substring-search.git ~/.zsh/z
 
 # Install kubectl
 KUBECTL_VERSION=$(curl -Ls https://dl.k8s.io/release/stable.txt)
-curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
-curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl.sha256"
+curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl"
+curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl.sha256"
 echo "$(cat kubectl.sha256)  kubectl" | sha256sum -c -
 install -m755 kubectl /usr/local/bin/
 rm kubectl kubectl.sha256
 
 # Install Lazygit
-LAZYGIT_VERSION=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | grep -Po '"tag_name": *"v\K[^"]*')
-curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+LAZYGIT_ARCHIVE=
+case "${TARGETARCH}" in
+  amd64) LAZYGIT_ARCHIVE=Linux_x86_64 ;;
+  arm64) LAZYGIT_ARCHIVE=Linux_arm64 ;;
+esac
+LAZYGIT_JSON=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest)
+LAZYGIT_TAG=$(printf '%s\n' "${LAZYGIT_JSON}" | jq -r '.tag_name')
+LAZYGIT_VERSION="${LAZYGIT_TAG#v}"
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/${LAZYGIT_TAG}/lazygit_${LAZYGIT_VERSION}_${LAZYGIT_ARCHIVE}.tar.gz"
 tar xf lazygit.tar.gz lazygit
 install -Dm755 lazygit /usr/local/bin/lazygit
 rm lazygit.tar.gz lazygit

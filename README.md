@@ -4,7 +4,7 @@ A comprehensive debugging and development container image packed with essential 
 
 This image is based on Alpine to keep the size small and includes [my dotfiles](https://github.com/tbysctt/dotfiles) to configure the built-in tools.
 
-> Note: It only supports x86 for now. ARM support will come later :)
+Images are published as a **multi-architecture manifest** for **linux/amd64** (x86_64) and **linux/arm64** (AArch64). A normal `docker pull` resolves the variant that matches your host.
 
 ## Quick Start
 
@@ -92,11 +92,18 @@ spec:
 
 ## Image Development
 
-To build, run and test locally:
+To build for your machine’s architecture and run locally:
 
 ```sh
 git clone https://github.com/tbysctt/toolbox.git
 cd toolbox
-docker build -t tobystoolbox:latest --platform=linux/amd64 .
+docker build -t tobystoolbox:latest .
 docker run --rm -it tobystoolbox:latest
+```
+
+To build for a specific platform (for example AArch64 Linux from an x86_64 host):
+
+```sh
+docker buildx build --load --platform linux/arm64 -t tobystoolbox:arm64 .
+docker run --rm -it tobystoolbox:arm64
 ```
