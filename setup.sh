@@ -21,7 +21,8 @@ apk add --no-cache \
   zsh tmux less ripgrep fd fzf grep \
   jq yq unzip gcc musl-dev python3 \
   iputils bind-tools net-tools procps \
-  strace tcpdump traceroute luarocks stow tzdata zsh-vcs neovim shadow fastfetch
+  strace tcpdump traceroute stow tzdata zsh-vcs shadow fastfetch yazi \
+  neovim tree-sitter tree-sitter-cli luarocks yaml-language-server gopls ruff # Needed for Neovim
 
 # Git identity defaults
 git config --global user.name "Debug User"
@@ -30,19 +31,12 @@ git config --global init.defaultBranch main
 
 # Clone dotfiles and stow them
 git clone https://github.com/tbysctt/dotfiles ~/dotfiles
-cd ~/dotfiles && stow zsh vim lazyvim tmux lf
+cd ~/dotfiles && stow zsh vim neovim tmux lf yazi
 
 # Install ZSH plugins
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-history-substring-search.git ~/.zsh/zsh-history-substring-search
-
-# Install Neovim
-# curl -LO "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
-# tar -xzf nvim-linux-x86_64.tar.gz
-# mv nvim-linux-x86_64 /opt/nvim
-# ln -s /opt/nvim/bin/nvim /usr/local/bin/nvim
-# rm nvim-linux-x86_64.tar.gz
 
 # Install kubectl
 KUBECTL_VERSION=$(curl -Ls https://dl.k8s.io/release/stable.txt)
@@ -65,9 +59,6 @@ curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/downl
 tar xf lazygit.tar.gz lazygit
 install -Dm755 lazygit /usr/local/bin/lazygit
 rm lazygit.tar.gz lazygit
-
-# Headlessly sync all lazy.nvim plugins
-nvim --headless "+Lazy! sync" +qa || true
 
 # Use ZSH as the default shell
 chsh -s /bin/zsh root
