@@ -20,9 +20,12 @@ apk add --no-cache \
   bash ca-certificates curl wget git \
   zsh tmux less ripgrep fd fzf grep \
   jq yq unzip gcc musl-dev python3 \
-  iputils bind-tools net-tools procps \
+  nodejs npm iputils bind-tools net-tools procps \
   strace tcpdump traceroute stow tzdata zsh-vcs shadow fastfetch yazi \
-  neovim tree-sitter tree-sitter-cli luarocks yaml-language-server gopls ruff # Needed for Neovim
+  neovim tree-sitter tree-sitter-cli luarocks gopls ruff # Needed for Neovim
+
+# yaml-language-server is only in Alpine edge/testing; install via NPM
+npm install -g yaml-language-server
 
 # Git identity defaults
 git config --global user.name "Debug User"
