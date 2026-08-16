@@ -31,7 +31,6 @@ git clone --depth 1 https://github.com/zsh-users/zsh-history-substring-search.gi
 
 # Install Go-based CLI tools
 GOBIN=/usr/local/bin go install github.com/jesseduffield/lazygit@latest
-GOBIN=/usr/local/bin go install github.com/wagoodman/dive@latest
 go clean -cache -modcache -testcache
 
 # Use ZSH as the default shell
