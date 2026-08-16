@@ -13,6 +13,7 @@ apk add --no-cache \
 
 # yaml-language-server is only in Alpine edge/testing; install via NPM
 npm install -g yaml-language-server typescript
+npm cache clean --force
 
 # Git identity defaults
 git config --global user.name "Debug User"
@@ -20,16 +21,18 @@ git config --global user.email "user@host.tld"
 git config --global init.defaultBranch main
 
 # Clone dotfiles and stow them
-git clone https://github.com/tbysctt/dotfiles ~/dotfiles
+git clone --depth 1 https://github.com/tbysctt/dotfiles ~/dotfiles
 cd ~/dotfiles && stow zsh vim neovim tmux lf yazi
 
 # Install ZSH plugins
-git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-history-substring-search.git ~/.zsh/zsh-history-substring-search
+git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
+git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
+git clone --depth 1 https://github.com/zsh-users/zsh-history-substring-search.git ~/.zsh/zsh-history-substring-search
 
-# Install Lazygit via Go
+# Install Go-based CLI tools
 GOBIN=/usr/local/bin go install github.com/jesseduffield/lazygit@latest
+GOBIN=/usr/local/bin go install github.com/wagoodman/dive@latest
+go clean -cache -modcache -testcache
 
 # Use ZSH as the default shell
 chsh -s /bin/zsh root
