@@ -20,7 +20,7 @@ apk add --no-cache \
   bash ca-certificates curl wget git \
   zsh tmux less ripgrep fd fzf grep \
   jq yq unzip gcc musl-dev python3 \
-  nodejs npm iputils bind-tools net-tools procps \
+  nodejs npm kubectl iputils bind-tools net-tools procps \
   strace tcpdump traceroute stow tzdata zsh-vcs shadow fastfetch yazi \
   neovim tree-sitter tree-sitter-cli luarocks gopls ruff # Needed for Neovim
 
@@ -41,13 +41,13 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosu
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-history-substring-search.git ~/.zsh/zsh-history-substring-search
 
-# Install kubectl
-KUBECTL_VERSION=$(curl -Ls https://dl.k8s.io/release/stable.txt)
-curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl"
-curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl.sha256"
-echo "$(cat kubectl.sha256)  kubectl" | sha256sum -c -
-install -m755 kubectl /usr/local/bin/
-rm kubectl kubectl.sha256
+# # Install kubectl
+# KUBECTL_VERSION=$(curl -Ls https://dl.k8s.io/release/stable.txt)
+# curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl"
+# curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl.sha256"
+# echo "$(cat kubectl.sha256)  kubectl" | sha256sum -c -
+# install -m755 kubectl /usr/local/bin/
+# rm kubectl kubectl.sha256
 
 # Install Lazygit
 LAZYGIT_ARCHIVE=
