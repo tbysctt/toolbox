@@ -38,6 +38,10 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: mode=max
+          sbom: true
           tags: |
             ghcr.io/tbysctt/toolbox:latest
             ghcr.io/tbysctt/toolbox:${{ github.sha }}

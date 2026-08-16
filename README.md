@@ -86,6 +86,7 @@ spec:
   containers:
   - name: debug-toolbox
     image: ghcr.io/tbysctt/toolbox:latest
+    # Override the image's zsh entrypoint to keep the sidecar running.
     command: ["sleep", "infinity"]
     # Then: kubectl exec -it pod-name -c debug-toolbox -- zsh
 ```
