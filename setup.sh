@@ -11,8 +11,8 @@ apk add --no-cache \
   strace tcpdump traceroute stow tzdata zsh-vcs shadow fastfetch yazi \
   neovim tree-sitter tree-sitter-cli luarocks go gopls ruff # Needed for Neovim
 
-# yaml-language-server is only in Alpine edge/testing; install via NPM
-npm install -g yaml-language-server typescript
+# Many dependencies we need for Neovim aren't available in APK
+npm install -g yaml-language-server typescript prettier
 npm cache clean --force
 
 # Git identity defaults
